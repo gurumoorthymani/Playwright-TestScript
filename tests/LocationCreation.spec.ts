@@ -1,0 +1,35 @@
+import { test, expect } from '@playwright/test';
+
+test('test', async ({ page }) => { 
+  test.slow();
+  await page.goto('https://test.salesforce.com/');
+  await page.getByRole('textbox', { name: 'Username' }).click();
+  await page.getByRole('textbox', { name: 'Username' }).fill('gurumoorthy.manickam@kodak.com.dev');
+  await page.getByRole('textbox', { name: 'Username' }).press('Tab');
+  await page.getByRole('textbox', { name: 'Password' }).fill('Awt@12345');
+  await page.getByRole('button', { name: 'Log In to Sandbox' }).click();
+ // await page.goto('https://kodak--dev.sandbox.lightning.force.com/lightning/page/home');
+  // await page.getByRole('button', { name: 'App Launcher' }).click();
+  // await page.getByRole('combobox', { name: 'Search apps and items...' }).fill('asset');
+  // await page.getByRole('option', { name: 'Asset 360', exact: true }).click();
+//  await page.goto('https://kodak--dev.sandbox.lightning.force.com/lightning/o/Account/list?filterName=__Recent');
+  await page.getByRole('link', { name: 'Locations' }).click();
+  await page.goto('https://kodak--dev.sandbox.lightning.force.com/lightning/o/Location/list?filterName=__Recent');
+  await page.waitForLoadState('load');
+  await page.getByRole('button', { name: 'New' }).click();
+  await page.getByRole('button', { name: 'Next' }).click();
+  await page.getByRole('textbox', { name: 'Location Name *' }).click();
+  await page.getByRole('textbox', { name: 'Location Name *' }).fill('Testing Location');
+  await page.getByRole('combobox', { name: 'Parent Location *' }).click();
+  await page.getByRole('option', { name: 'Kodak S.A. France -' }).click();
+  await page.getByRole('combobox', { name: 'Account Help Account' }).click();
+  await page.getByRole('option', { name: 'Aenta Life and Casualty' }).click();
+  await page.getByRole('combobox', { name: 'Field Location *' }).click();
+  await page.getByRole('combobox', { name: 'Field Location *' }).fill('kodak');
+  await page.getByRole('option', { name: 'Kodak SG FE Plant' }).click();
+  await page.getByRole('textbox', { name: 'Country *' }).click();
+  await page.getByRole('textbox', { name: 'Country *' }).fill('US');
+  await page.getByRole('textbox', { name: 'External Reference *' }).click();
+  await page.getByRole('textbox', { name: 'External Reference *' }).fill('Guru');
+  await page.getByRole('button', { name: 'Save', exact: true }).click();
+});

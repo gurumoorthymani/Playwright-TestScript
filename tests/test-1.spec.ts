@@ -1,0 +1,37 @@
+import { test, expect } from '@playwright/test';
+
+test('test', async ({ page }) => {
+  await page.goto('https://dev.customer.kodak.com/s/login/?language=en_US&ec=302&startURL=%2Fs%2F');
+  await page.getByRole('button', { name: 'LOGIN' }).click();
+  await page.getByRole('textbox', { name: 'Please type your email' }).fill('dharmeshwaran@aintiram.com');
+  await page.getByRole('button', { name: 'Next' }).click();
+  await page.locator('#i0118').fill('Dharmesh@2003$2005');
+  await page.getByRole('button', { name: 'Sign in' }).click();
+  await page.getByRole('button', { name: 'Yes' }).click();
+  await page.goto('https://dev.customer.kodak.com/s/');
+  const page1Promise = page.waitForEvent('popup');
+  await page.getByRole('main').locator('span').getByRole('img', { name: 'Logo' }).click();
+  const page1 = await page1Promise;
+  await page1.goto('https://kodak--dev.sandbox.my.site.com/ServiceandSupportPortal/s/');
+  await page1.locator('div').filter({ hasText: /^My Assets$/ }).getByRole('link').first().click();
+  await page1.getByRole('menuitem', { name: 'MY CASES' }).click();
+  await page1.getByRole('menuitem', { name: 'Home' }).click();
+  await page1.getByRole('paragraph').filter({ hasText: 'New Service Request' }).getByRole('link').click();
+  await page1.getByRole('menuitem', { name: 'Home' }).click();
+  // const page2Promise = page1.waitForEvent('popup');
+  // await page1.getByRole('paragraph').filter({ hasText: 'Knowledge Search' }).click();
+  // const page2 = await page2Promise;
+  await page1.getByRole('paragraph').filter({ hasText: 'New Inquiry Request' }).click();
+  await page1.getByRole('button', { name: 'Select a List View: Accounts' }).click();
+  await page1.getByText('My Accounts Service & Support').click();
+  await page1.getByRole('link', { name: 'Aenta Life and Casualty' }).click();
+  await page1.getByRole('tab', { name: 'Assets' }).click();
+  await page1.getByRole('tab', { name: 'Contacts' }).click();
+  await page1.getByRole('button', { name: 'Create Inquiry Case' }).click();
+  await page1.getByRole('combobox', { name: '*Contact Name' }).click();
+  await page1.getByRole('combobox', { name: 'Sub Type' }).click();
+  await page1.getByText('Customer Master Updates').click();
+  await page1.getByRole('textbox', { name: '*Description' }).click();
+  await page1.getByRole('textbox', { name: '*Description' }).fill('testing');
+  await page1.getByRole('button', { name: 'Submit' }).click();
+});
